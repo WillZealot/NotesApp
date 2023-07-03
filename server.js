@@ -2,7 +2,7 @@ const fs = require('fs');
 const express = require('express');
 const path = require('path');
 const PORT = process.env.PORT || 3001;
-const {noteTitle,noteText,saveNoteBtn,newNoteBtn, noteList} = require('./public/assets/js/index');
+const {noteTitle,noteText,saveNoteBtn,newNoteBtn, noteList,db} = require('./public/assets/js/index');
 
 const app = express();
 app.use(express.json());
@@ -19,7 +19,7 @@ app.get('*', (req,res) => {
 });
 
 app.get('/api/notes', (req,res) => {
-    //todo read database db file and return all saved notes as json
+    res.noteList();
 });
 
 app.post('/notes', (req,res) => {
