@@ -2,7 +2,7 @@ const fs = require('fs');
 const express = require('express');
 const path = require('path');
 const PORT = process.env.PORT || 3001;
-//const resources = require('./public/assets/js/index');
+const {noteTitle,noteText,saveNoteBtn,newNoteBtn, noteList} = require('./public/assets/js/index');
 
 const app = express();
 app.use(express.json());
