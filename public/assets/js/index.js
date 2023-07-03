@@ -1,4 +1,4 @@
-const db = require('db.json');
+
 
 let noteTitle;
 let noteText;
@@ -28,7 +28,7 @@ const hide = (elem) => {
 let activeNote = {};
 
 const getNotes = () =>
-  fetch(`/notes`, {
+  fetch(`api/notes`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
