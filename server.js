@@ -20,7 +20,7 @@ app.get('/api/notes', (req, res) => {
   fs.readFile('./db/db.json', 'utf8', (err, data) => {
     if (err) {
       console.error(err);
-      return res.status(500).json({ error: 'Failed to read notes from the database.' });
+      return res.status(500);
     }
 
     try {
@@ -28,7 +28,7 @@ app.get('/api/notes', (req, res) => {
       res.json(notes); // Send the parsed notes as the response
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Failed to parse notes data.' });
+      res.status(500);
     }
   });
 });
@@ -38,7 +38,7 @@ app.post('/api/notes', (req, res) => {
   fs.readFile('./db/db.json', 'utf8', (err, data) => {
     if (err) {
       console.error(err);
-      return res.status(500).json({ error: 'Failed to read notes from the database.' });
+      return res.status(500);
     }
 
     try {
@@ -61,7 +61,7 @@ app.post('/api/notes', (req, res) => {
       fs.writeFile('./db/db.json', JSON.stringify(notes), (err) => {
         if (err) {
           console.error(err);
-          return res.status(500).json({ error: 'Failed to save the note to the database.' });
+          return res.status(500);
         }
 
         // Send the new note as the response
@@ -69,7 +69,7 @@ app.post('/api/notes', (req, res) => {
       });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Failed to parse notes data.' });
+      res.status(500);
     }
   });
 });
@@ -78,7 +78,7 @@ app.delete('/api/notes/:id', (req, res) => {
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
       if (err) {
         console.error(err);
-        return res.status(500).json({ error: 'Failed to read notes from the database.' });
+        return res.status(500);
       }
   
       try {
@@ -90,20 +90,14 @@ app.delete('/api/notes/:id', (req, res) => {
         fs.writeFile('./db/db.json', JSON.stringify(updatedNotes), (err) => {
           if (err) {
             console.error(err);
-            return res.status(500).json({ error: 'Failed to delete the note from the database.' });
+            return res.status(500);
           }
-  
-          res.json({ message: 'Note deleted successfully.' });
         });
       } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Failed to parse notes data.' });
+        res.status(500);
       }
     });
-  });
-  
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/index.html'));
   });
 
 
