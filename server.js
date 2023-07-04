@@ -34,7 +34,7 @@ app.get('/api/notes', (req, res) => {
 });
 
 // Route to create a new note
-app.post('/notes', (req, res) => {
+app.post('/api/notes', (req, res) => {
   fs.readFile('./db/db.json', 'utf8', (err, data) => {
     if (err) {
       console.error(err);
