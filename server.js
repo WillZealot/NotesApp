@@ -33,38 +33,6 @@ app.get('/api/notes', (req, res) => {
   });
 });
 
-app.delete('/api/notes/:id', (req, res) => {
-    fs.readFile('./db/db.json', 'utf8', (err, data) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ error: 'Failed to read notes from the database.' });
-      }
-  
-      try {
-        const notes = JSON.parse(data);
-        const noteId = req.params.id;
-  
-        const updatedNotes = notes.filter(note => note.id !== noteId);
-  
-        fs.writeFile('./db/db.json', JSON.stringify(updatedNotes), (err) => {
-          if (err) {
-            console.error(err);
-            return res.status(500).json({ error: 'Failed to delete the note from the database.' });
-          }
-  
-          res.json({ message: 'Note deleted successfully.' });
-        });
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Failed to parse notes data.' });
-      }
-    });
-  });
-  
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/index.html'));
-  });
-
 // Route to create a new note
 app.post('/api/notes', (req, res) => {
   fs.readFile('./db/db.json', 'utf8', (err, data) => {
@@ -105,6 +73,39 @@ app.post('/api/notes', (req, res) => {
     }
   });
 });
+
+app.delete('/api/notes/:id', (req, res) => {
+    fs.readFile('./db/db.json', 'utf8', (err, data) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: 'Failed to read notes from the database.' });
+      }
+  
+      try {
+        const notes = JSON.parse(data);
+        const noteId = req.params.id;
+  
+        const updatedNotes = notes.filter(note => note.id !== noteId);
+  
+        fs.writeFile('./db/db.json', JSON.stringify(updatedNotes), (err) => {
+          if (err) {
+            console.error(err);
+            return res.status(500).json({ error: 'Failed to delete the note from the database.' });
+          }
+  
+          res.json({ message: 'Note deleted successfully.' });
+        });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to parse notes data.' });
+      }
+    });
+  });
+  
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'));
+  });
+
 
 // Route to serve the index.html file for all other routes
 app.get('*', (req, res) => {
